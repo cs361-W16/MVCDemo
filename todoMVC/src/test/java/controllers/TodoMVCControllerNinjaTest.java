@@ -28,6 +28,7 @@ public class TodoMVCControllerNinjaTest  extends NinjaTest {
     public void testPOSTTodoListJson(){
         ToDoList tl = new ToDoList();
         tl.addTodoItem("Buy Milk");
+
         String response = ninjaTestBrowser.postJson("http://localhost:8080" + URL_TODO_LIST_JSON,tl);
 
         try {
@@ -38,6 +39,25 @@ public class TodoMVCControllerNinjaTest  extends NinjaTest {
         }
 
     }
+
+    @Test
+    public void testPOSTaddItemTodoListJson(){
+        ToDoList tl = new ToDoList();
+        tl.item = "Buy Milk";
+        tl.action = "add";
+
+        String response = ninjaTestBrowser.postJson("http://localhost:8080" + URL_TODO_LIST_JSON,tl);
+
+        try {
+            ToDoList resultTL = new ObjectMapper().readValue(response, ToDoList.class);
+            assertEquals("Buy Milk",resultTL.lastItemAdded());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
 }

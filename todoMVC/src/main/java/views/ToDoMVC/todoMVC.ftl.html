@@ -1,9 +1,47 @@
-<#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout "Home page">
 
-
+<script type="text/javascript" src="/assets/webjars/jquery/2.1.3/jquery.js"></script>
 <h1>Todo List</h1>
-<p>${i18n("hello.world.json")}</p>
-<a href="/hello_world.json"></a>
 
-</@layout.myLayout>
+<div id="TodoList"></div>
+<BR><BR>
+<input type="text" id="txt_name"  />
+<button id="dealButton">Add</button>
+
+
+    <script>
+
+var list;
+
+function display(list) {
+$( '#TodoList' ).html("");
+  $.each(list.todoItems, function( key, value ) {
+    $( '#TodoList' ).append(value + "<BR>");
+  });
+}
+
+$.getJSON("http://localhost:8080/todoList.json", function( data ) {
+display(data);
+list = data;
+});
+
+$("#dealButton").click(function(){
+
+list.action = "add";
+list.item = $("#txt_name").val();
+
+$.ajax({
+  type: "POST",
+  url: "/todoList.json",
+  data: JSON.stringify(list),
+  success: function(data, status){console.log("Data: " + data + "\nStatus: " + status);
+        list = data;
+        display(data);},
+  contentType:"application/json; charset=utf-8",
+  dataType:"json",
+});
+
+
+});
+
+</script>
+

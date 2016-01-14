@@ -34,7 +34,8 @@ public class Routes implements ApplicationRoutes {
 
         router.GET().route("/TodoMVC").with(TodoController.class, "TodoMVC");
 
-        router.GET().route("/todoList.json").with(TodoController.class, "TodoMVCJsonList");
+        router.GET().route("/todoList.json").with(TodoController.class, "TodoMVCJsonListGet");
+        router.POST().route("/todoList.json").with(TodoController.class, "TodoMVCJsonListPost");
         
  
         ///////////////////////////////////////////////////////////////////////

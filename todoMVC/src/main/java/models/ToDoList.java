@@ -8,6 +8,9 @@ import java.util.ArrayList;
  */
 public class ToDoList implements Serializable {
     public java.util.List<String> todoItems;
+    public String item;
+    public String action;
+
 
     public ToDoList(){
         todoItems = new ArrayList<String>();
@@ -24,4 +27,5 @@ public class ToDoList implements Serializable {
     public String lastItemAdded() {
         return todoItems.get(todoItems.size()-1);
     }
+
 }
